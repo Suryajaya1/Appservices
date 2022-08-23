@@ -19,8 +19,14 @@ namespace Appservices
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
+
+                //Azure config
+                webBuilder.ConfigureAppConfiguration(config =>
                 {
-                    webBuilder.UseStartup<Startup>();
-                });
+
+                    var settings = config.Build();
+                    config.AddAzureAppConfiguration("Endpoint=https://apserazresource.azconfig.io;Id=V9m7-l0-s0:SB9sKJITLyh2HlDxGkOZ;Secret=pOamd9I09bmmx6H4K+tHRrHBQGzoSazLscwMN2w61I4=");
+                })
+                        .UseStartup<Startup>());
     }
 }
